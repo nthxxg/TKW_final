@@ -348,7 +348,44 @@
                     </div><!-- End .header-left -->
 
                     <div class="header-right">
-                        <i class="la la-lightbulb-o"></i><p>Sale lên đến 30%</span></p>
+                        <b style="color: white; text-align: center;">
+                            <div id="clock"></div>                        
+                            <div id="hms"></div>
+                        </b>
+                        
+                        <script>
+                            function updateClock() {
+                                const now = new Date();
+                                let h = now.getHours();
+                                let m = now.getMinutes();
+                                let s = now.getSeconds();
+
+                                // Định dạng hai chữ số
+                                h = dinhdang2so(h);
+                                m = dinhdang2so(m);
+                                s = dinhdang2so(s);
+
+                                document.getElementById("hms").innerHTML = h + ":" + m + ":" + s;
+
+                                // Mảng chứa ký hiệu thứ
+                                const days = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+                                const dayIndex = now.getDay(); // Lấy chỉ số ngày (0 = Chủ Nhật, 1 = Thứ Hai, ...)
+                                const daySymbol = days[dayIndex];
+
+                                // Cập nhật ngày tháng và thứ
+                                const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                                const formattedDate = now.toLocaleDateString('vi-VN', options);
+                                document.getElementById("clock").textContent = daySymbol + ', ' + formattedDate;
+                            }
+
+                            function dinhdang2so(x) {
+                                return (x < 10 ? "0" + x : x);
+                            }
+
+                            // Khởi động đồng hồ
+                            updateClock();
+                            setInterval(updateClock, 1000);
+                        </script>                        
                     </div>
                 </div><!-- End .container -->
             </div><!-- End .header-bottom -->
